@@ -32,10 +32,12 @@ def signup(request):
             if user is not None:
                 logging.debug('yy')
                 
-                login(request, user)
+                #login(request, user)
                 user = User.objects.get(username=username)
                 user_img = UserImage(user=user,image=image,)             
                 user_img.save()
+                params={'user':user}
+                return render(request,"main/home.html",params)
         params = {"form": form, }
         logging.debug('yyy')
         return render(request, "main/signup.html", params)

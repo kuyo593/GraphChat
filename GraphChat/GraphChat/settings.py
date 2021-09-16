@@ -39,7 +39,18 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
+    'django.contrib.sites',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    
+    #'main.apps.MainConfi
 ]
+
+
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -127,7 +138,18 @@ LOGIN_REDIRECT_URL = 'home'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = '/media/'
 
+
+
+
+
+
+
+
 import logging
+
+
+
+
 
 # For debugging 
 if DEBUG:
