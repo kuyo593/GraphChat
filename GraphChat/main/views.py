@@ -1,11 +1,13 @@
+
 from django.shortcuts import render, redirect
 from .forms import SignUpForm,LoginForm
 from django.contrib.auth import authenticate, get_user, login
 from django.contrib.auth.views import LoginView
-from .models import User, UserImage
+from .models import User, UserImage,Talk
 from django.contrib.auth.decorators import login_required
 import logging
-
+import datetime
+from django.db.models import Q,Max
 
 # Create your views here.
 def index(request):
@@ -60,7 +62,21 @@ def group(request):
 
 @login_required
 def friends(request):
-    return render(request,'main/friends.html')
+    user = request.user
+    friends = User.objects.exclude(id=user.id)
+    friendsTime=[] #ここのコードはもっと効率よくできるかもしれない
+    friendsTime0=[]
+    for friend in friends:
+        timeData=Talk.objects.filter(Q(talk_from=user,talk_to=friend)|Q(talk_from=friend,talk_to=user)).aggregate(Max('time'))
+        if timeData['time__max'] == None:
+            friendsTime0.append([friend,0])
+        else:
+            friendsTime.append([friend,timeData['time__max']])
+    friendsTime = sorted(friendsTime, reverse=True, key=lambda x: x[1])
+    friendsTime += friendsTime0
+
+    params={"friends": friendsTime,}
+    return render(request,'main/friends.html',params)
 
 @login_required
 def my_page(request):
