@@ -1,1 +1,27 @@
-a
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"  href="main/friends.css" />
+</head>
+<body>
+     {{friends}}
+     {% for friend in friends %}
+    
+           <a  href="{% url 'talk_room' friend.username %}">
+               <img class="friends__list-usericon" src="/images/{{ user_img.image }}">
+               <div class="friends__list-username">{{ friend.username }}</div>
+               <!-- ここから最新のトークを表示する部分 -->
+               <div class="friends__list-talk">
+                   <p class="friends__list-talk-content">{{ friend.latest_msg_content }}</p>
+                   <p class="friends__list-talk-time">{{ friend.latest_msg_pub_date|date:"n/j H:i" }}</p>
+               </div>
+           </a>
+       </li>
+       {% endfor %}
+
+
+</body>
+</html>
