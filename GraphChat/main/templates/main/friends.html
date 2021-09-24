@@ -4,23 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet"  href="main/friends.css" />
+    <link rel="stylesheet"  type = 'text/css' href="{% static 'main/css/friends.css' %}" />
 </head>
 <body>
-     {{friends}}
-     {% for friend in friends %}
     
-           <a  href="{% url 'talk_room' friend.username %}">
-               <img class="friends__list-usericon" src="/images/{{ user_img.image }}">
-               <div class="friends__list-username">{{ friend.username }}</div>
-               <!-- ここから最新のトークを表示する部分 -->
-               <div class="friends__list-talk">
-                   <p class="friends__list-talk-content">{{ friend.latest_msg_content }}</p>
-                   <p class="friends__list-talk-time">{{ friend.latest_msg_pub_date|date:"n/j H:i" }}</p>
-               </div>
-           </a>
-       </li>
-       {% endfor %}
+    {% for friend in friends %}
+        
+        <a href="{% url 'topic' friend.0.id %}">  <!--{{friend.id}}ではエラー  -->
+            {% if friend.1.image %}
+              <img src="{{friend.1.image.url}} ">
+            {% endif %}
+            {{friend.0.username}}
+        </a>
+    
+      
+    {% endfor %}
 
 
 </body>
