@@ -87,16 +87,24 @@ def friends(request):
 
 @login_required
 def topic(request,id):
+    user = request.user.id
     if request.method == "GET":
         partnerUser = User.objects.get(id = id)
+        myUser = User.objects.get(id = user)
+        topic = myUser.talk
 
-        return render(request,'main/talk.html')
+        params = {
+            'topic': topic,
+
+        }
+
+        return render(request,'main/topic.html',params)
 
     elif request.method == "POST": #トピックを作るページ
         return render(request,'main/talk.html')
 
 
-    return render(request,'main/topic.html')
+   
 
 @login_required
 def my_page(request):
