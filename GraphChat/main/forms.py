@@ -1,8 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
-
+from django.forms import ModelForm
 from django.contrib.auth.models import User
-from .models import User
+from .models import User,Talk
 from django.core.exceptions import ValidationError
 from django.core.validators import ( FileExtensionValidator)
 
@@ -14,3 +14,11 @@ class SignUpForm(UserCreationForm):
 
 class LoginForm(AuthenticationForm):
     pass
+
+class TopicForm(ModelForm):
+    class Meta:
+        model = Talk
+        fields = [
+            'talk', 'time',
+        ]
+
