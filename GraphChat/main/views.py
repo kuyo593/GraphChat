@@ -1,6 +1,6 @@
 
 from django.shortcuts import render, redirect
-from .forms import SignUpForm,LoginForm
+from .forms import SignUpForm,LoginForm,TopicForm
 from django.contrib.auth import authenticate, get_user, login
 from django.contrib.auth.views import LoginView
 from .models import User, UserImage,Talk
@@ -79,9 +79,6 @@ def friends(request):
             friendsTimeSort.append([friend,image,timeData['time__max']])
     friendsTimeSort = sorted(friendsTimeSort, reverse=True, key=lambda x: x[2])
     friendsTimeSort += friendsTime0
-    
-
-    
     params={"friends": friendsTimeSort, }
     return render(request,'main/friends.html',params)
 
@@ -91,10 +88,15 @@ def topic(request,id):
     if request.method == "GET":
         partnerUser = User.objects.get(id = id)
         myUser = User.objects.get(id = user)
+        form = TopicForm()
+
+        #あとでmyUser.talkの中に対象の人のトピックが一つでもあるか評価するようなコードｗを書く
+        #userを作った時にmyUser.talkにusetr情報（情報はない）を追加するのもあり
         topic = myUser.talk
 
         params = {
             'topic': topic,
+            'form' : form,
 
         }
 
