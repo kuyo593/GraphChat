@@ -4,14 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="home.css" />
-    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+    <link rel="stylesheet"  type = 'text/css' href="{% static 'main/css/home.css' %}">
 </head>
 <body>
-     
-     <a href="{% url 'friends' %}">友達</a>
-     <a href="{% url 'group' %}">グループ</a>
-     <a href="{% url 'my_page' %}">マイページへ</a>
-
+    <div>
+        <a href="{% url 'friends' %}">Friends</a>
+    </div>
+    <div>
+        <a href="{% url 'group' %}">Group</a>
+    </div>
+    <div>
+        <a href="{% url 'my_page' %}">My page</a>
+    </div>
 </body>
 </html>

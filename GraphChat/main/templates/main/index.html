@@ -1,14 +1,19 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="index.css" />
-    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
-    <title>ようこそ、GraphChatへ</title>
-</head>
-<body>    
-<a href="login">login</a>
-<a href="signup">siginup</a>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type = 'text/css' href="{% static 'main/css/index.css' %}" >
+        <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+        <title>ようこそ、GraphChatへ</title>
+    </head>
+    <body>
+        <div>
+            <a href="login">Login</a>
+        </div>
+        <div>
+            <a href="signup">Sign up</a>
+        </div>
+    </body>
 </html>
