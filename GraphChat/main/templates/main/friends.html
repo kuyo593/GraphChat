@@ -1,1 +1,25 @@
-a
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"  type = 'text/css' href="{% static 'main/css/friends.css' %}" />
+</head>
+<body>
+    
+    {% for friend in friends %}
+        
+        <a href="{% url 'topic' friend.0.id %}">  <!--{{friend.id}}ではエラー  -->
+            {% if friend.1.image %}
+              <img src="{{friend.1.image.url}} ">
+            {% endif %}
+            {{friend.0.username}}
+        </a>
+    
+      
+    {% endfor %}
+
+
+</body>
+</html>
