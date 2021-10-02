@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User,AbstractUser
 from django.forms.fields import JSONField
+from datetime import datetime
 #from django.contrib.postgres.fields import ArrayField
 
 
@@ -18,8 +19,8 @@ class Talk(models.Model):
    talk = models.CharField(null=False,max_length=500)
    talk_from = models.ForeignKey(User, on_delete=models.CASCADE, related_name="talk_from",null=True) #topicを保存する時はnullで
    talk_to = models.ForeignKey(User, on_delete=models.CASCADE, related_name="talk_to",null=True)
-   time = models.DateTimeField(auto_now_add=True)
    child_talk_id = JSONField()
+   time = models.DateTimeField(default=datetime.now)
 
 class Group(models.Model):
    name=models.CharField(null=False,max_length=36)
