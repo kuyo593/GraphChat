@@ -8,16 +8,15 @@ from django.forms.fields import JSONField
 class User(User):
     talk = JSONField()
 
-#登録　user (username = demia password = hujyi4597 username=demi password=ty2345ty  username = ad paass = yu6789iu)
+#登録　user (username = demia password = hujyi4597 username=demi password=ty2345ty )
 
 class UserImage(models.Model):
    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="user_img")
-   image = models.ImageField(verbose_name="画像", null=True, blank=True, upload_to="images/")
+   image = models.ImageField(verbose_name="画像", null=True, blank=True, upload_to="images")
 
 class Talk(models.Model):
    talk = models.CharField(null=False,max_length=500)
-   talk_from = models.ForeignKey(User, on_delete=models.CASCADE, related_name="talk_from",null=False)
-   talk_to = models.ForeignKey(User, on_delete=models.CASCADE, related_name="talk_to",null=False)
+   talk_from = models.ForeignKey(User, on_delete=models.CASCADE, related_name="talk_from")
    time = models.DateTimeField(auto_now_add=True)
    child_talk_id=JSONField()
 
