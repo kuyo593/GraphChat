@@ -1,1 +1,35 @@
-a
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" type = 'text/css' href="{% static 'main/css/my_page.css' %}">
+    <title>マイページ</title>
+</head>
+<body>    
+    <form method="post" action="{% url 'my_page' %}" >
+        <div>
+            {{ form.username.label_tag }}
+            {{ form.username }}
+        </div>
+        <div>
+            {{ form.password.label_tag }}
+            {{ form.password}}
+        </div>
+        <div>
+            {{ form.image.label_tag }}
+            {{ form.image }}
+        </div>
+           
+        {% csrf_token %}
+        <button type="submit">update</button>
+        
+    </form>
+
+    <a href="{% url 'home' %}">return</a>
+    
+    
+</body>
+</html>

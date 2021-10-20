@@ -12,8 +12,7 @@ urlpatterns = [
     path('friends',views.friends,name='friends'),
     path('group',views.group,name='group'),
     path('my_page',views.my_page,name='my_page'),
-    path ('topic/<int:id>',views.topic,name='topic'),
-    
-
+    path('topic/<int:id>',views.topic,name='topic'),
+    #path('talk/<topic_id>', views.talk, name='talk'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

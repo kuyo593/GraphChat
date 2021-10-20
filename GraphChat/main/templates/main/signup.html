@@ -9,7 +9,7 @@
     <title>ようこそ、GraphChatへ</title>
 </head>
 <body>    
-    <form method="post" action="{% url 'signup' %}" enctype="multipart/form-data">
+    <form method="post" action="{% url 'signup' %}" >
         <table>
             <tr>
                 <td>{{ form.username.label_tag }}</td>

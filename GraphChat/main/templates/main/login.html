@@ -9,9 +9,7 @@
 </head>
 <body>
      {% if form.errors  %}
-     
        ユーザーID, パスワードが一致しません．
-     
      {% endif %}
      <form method="POST" action="{% url 'login' %}" >
        {% csrf_token %}
