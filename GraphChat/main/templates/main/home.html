@@ -7,10 +7,14 @@
     <link rel="stylesheet"  type = 'text/css' href="{% static 'main/css/home.css' %}">
 </head>
 <body>
-     
-     <a href="{% url 'friends' %}">友達</a>
-     <a href="{% url 'group' %}">グループ</a>
-     <a href="{% url 'my_page' %}">マイページへ</a>
-
+    <div>
+        <a href="{% url 'friends' %}">Friends</a>
+    </div>
+    <div>
+        <a href="{% url 'group' %}">Group</a>
+    </div>
+    <div>
+        <a href="{% url 'my_page' %}">My page</a>
+    </div>
 </body>
 </html>

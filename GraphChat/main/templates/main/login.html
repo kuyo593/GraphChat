@@ -9,22 +9,26 @@
 </head>
 <body>
      {% if form.errors  %}
+
        ユーザーID, パスワードが一致しません．
+
      {% endif %}
      <form method="POST" action="{% url 'login' %}" >
        {% csrf_token %}
-       <div class='login__username'>
-         <label>ユーザーネーム:</label>
-         {{ form.username }}
-         {{ form.username.errors }}
-       </div>
-       <div class='login__password'>
-       <label>パスワード:</label>
-       {{ form.password }}
-       {{ form.password.errors }}
-       </div>
-       <button type="submit" class='login__button'>ログイン</button>
-     </form>
+        <div class='login__username'>
+          <label>Name</label>
+          {{ form.username }}
+          {{ form.username.errors }}
+        </div>
+        <div>
+          <button type="submit" class='login__button'>Login</button>
+        </div>
+        <div class='login__password'>
+          <label>Password</label>
+          {{ form.password }}
+          {{ form.password.errors }}
+        </div>
+      </form>
      <a href="{% url 'index' %}">戻る</a>
 </body>
 </html>
