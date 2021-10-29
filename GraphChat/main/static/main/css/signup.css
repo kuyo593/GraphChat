@@ -2,14 +2,43 @@ html{
   font-size: 32px;
 }
 
-tr{
-  background-color: #FFDEB2;
-  width: 200px;
-  height: 200px;
+body{
+  margin: 0;
+}
+
+form{
+  height: 900px;/*ここを調整してレスポンシブ対応*/
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.contents{
+  width: 160px;
+  height: 160px;
   border: 4px solid #8d8d8d;
   border-radius: 50%;
   text-align:center;
-  line-height: 200px;
+  line-height: 160px;
   margin: 50px auto;
   cursor: pointer;
+  font-weight: bold;
+  color: #c5c5c5;
 }
+
+.signup__button{
+  width: 200px;
+  height: 200px;
+  background-color: #FFDEB2;
+  line-height: 200px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #707070;
+  border: none;
+}
+
+.signup__password{
+  font-size: 0.8rem;
+}
+

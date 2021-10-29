@@ -4,33 +4,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="signup.css" />
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
     <link rel="stylesheet" type = 'text/css' href="{% static 'main/css/signup.css' %}">
     <title>ようこそ、GraphChatへ</title>
 </head>
 <body>
     <form method="post" action="{% url 'signup' %}" >
-        <table>
-            <tr>
-                <td>{{ form.username.label_tag }}</td>
-                <td>{{ form.username }}</td>
-            </tr>
-            <tr>
-                <td>{{ form.password1.label_tag }}</td>
-                <td>{{ form.password1 }}</td>
-            </tr>
-            <tr>
-                <td>{{ form.password2.label_tag }}</td>
-                <td>{{ form.password2 }}</td>
-            </tr>
-            <tr>
-                <td>{{ form.img.label_tag }}</td>
-                <td>{{ form.img }}</td>
-            </tr>
-        </table>
         {% csrf_token %}
-        <button type="submit">submit</button>
+        <div class='signup__username contents'>
+            <label>Name</label>
+            {{ form.username.label_tag }}
+            {{ form.username }}
+        </div>
+        <div>
+        <button type="submit" class='signup__button  contents'>Sign up</button>
+        </div>
+        <div class='signup__password  contents'>
+            <label>Password</label>
+            {{ form.password1.label_tag }}
+            {{ form.password1 }}
+        </div>
+        <!-- <div class='signup__password  contents'>
+            <label>Password</label>
+            {{ form.password2.label_tag }}
+            {{ form.password2 }}
+        </div> -->
+        <div class='signup__img  contents'>
+            <label>Image</label>
+            {{ form.img.label_tag }}
+            {{ form.img }}
+        </div>
     </form>
     <a href="{% url 'index' %}">戻る</a>
 </body>
