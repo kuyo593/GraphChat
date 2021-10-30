@@ -2,21 +2,30 @@ html{
   font-size: 32px;
 }
 
-body div{
-  background-color: #FFDEB2;
-  width: 200px;
-  height: 200px;
-  border: 4px solid #8d8d8d;
-  border-radius: 50%;
-  text-align:center;
-  line-height: 200px;
-  margin: 50px auto;
-  cursor: pointer;
+body{
+margin: 0;
 }
 
-body div a{
-  font-size: 1rem;
-  font-weight: bold;
-  color: #707070;
-  text-decoration: none;
+div{
+height: 900px;/*ここを調整してレスポンシブ対応*/
+display: flex;
+flex-flow: column;
+justify-content: space-around;
+align-items: center;
+}
+
+a{
+background-color: #FFDEB2;
+width: 200px;
+height: 200px;
+border: 4px solid #8d8d8d;
+border-radius: 50%;
+text-align:center;
+line-height: 200px;
+margin: 50px auto;
+cursor: pointer;
+font-size: 1rem;
+font-weight: bold;
+color: #707070;
+text-decoration: none;
 }
