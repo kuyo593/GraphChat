@@ -15,15 +15,15 @@
      {% endif %}
      <form method="POST" action="{% url 'login' %}" >
        {% csrf_token %}
-        <div class='login__username'>
+        <div class='login__username contents'>
           <label>Name</label>
           {{ form.username }}
           {{ form.username.errors }}
         </div>
         <div>
-          <button type="submit" class='login__button'>Login</button>
+          <button type="submit" class='login__button  contents'>Login</button>
         </div>
-        <div class='login__password'>
+        <div class='login__password  contents'>
           <label>Password</label>
           {{ form.password }}
           {{ form.password.errors }}
