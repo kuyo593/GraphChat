@@ -8,7 +8,16 @@
 </head>
 <body>
     {{topic}}
+
+
+    
+    <form method="POST" action="{% url 'topic' id %}" >
+        {% csrf_token %}
+        <p>トピック内容</p>
+        <p>{{form.talk}}</p>
+        <input type="submit" value="click">
+    </form>
     
 
 </body>
-</html>
+</html>>

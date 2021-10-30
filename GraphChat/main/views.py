@@ -1,9 +1,9 @@
 
 from django.shortcuts import render, redirect
-from .forms import SignUpForm,LoginForm,TopicForm
+from .forms import SignUpForm, LoginForm, TopicForm, ProfileChangeForm
 from django.contrib.auth import authenticate, get_user, login
 from django.contrib.auth.views import LoginView
-from .models import User, UserImage,Talk
+from .models import User, UserImage,Talk, Topic
 from django.contrib.auth.decorators import login_required
 import logging
 import datetime
@@ -19,12 +19,10 @@ def signup(request):
         form = SignUpForm()
         params = {"form": form, }
         return render(request, "main/signup.html", params)
-    elif request.method == "POST":
         
+    elif request.method == "POST":
         form = SignUpForm(request.POST, request.FILES)
-        logging.debug(form.errors)
         if form.is_valid():
-            
             form.save()
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password1')
@@ -32,18 +30,13 @@ def signup(request):
             user = authenticate(username=username, password=password)
             
             if user is not None:
-                logging.debug('yy')
-                
-                #login(request, user)
+                #login(request, user)でエラーがでたのでとりあえず別手段でログイン
                 user = User.objects.get(username=username)
                 user_img = UserImage(user=user,image=image,)             
                 user_img.save()
                 params={'user':user}
-                if image is None:
-                    logging.debug('yyly')
                 return render(request,"main/home.html",params)
         params = {"form": form, }
-        logging.debug('yyy')
         return render(request, "main/signup.html", params)
 
 
@@ -84,31 +77,74 @@ def friends(request):
 
 @login_required
 def topic(request,id):
-    user = request.user.id
+    user_id = request.user.id
     if request.method == "GET":
         partnerUser = User.objects.get(id = id)
-        myUser = User.objects.get(id = user)
+        myUser = User.objects.get(id = user_id)
         form = TopicForm()
-
+        
+        
         #あとでmyUser.talkの中に対象の人のトピックが一つでもあるか評価するようなコードｗを書く
         #userを作った時にmyUser.talkにusetr情報（情報はない）を追加するのもあり
-        topic = myUser.talk
-
+        
         params = {
-            'topic': topic,
             'form' : form,
+            'id'   : id,
 
         }
 
         return render(request,'main/topic.html',params)
 
     elif request.method == "POST": #トピックを作るページ
-        return render(request,'main/talk.html')
+        obj = Talk()
+        topic = TopicForm(request.POST, instance=obj)
+        topic.save()
+        topic_id=topic.id
+        
+
+        myUser = User.objects.get(id = user_id)
+        partnerUser = User.objects.get(id = id)
+        if Topic.objects.filter(user=id).filter(user=user_id) == None : #errorでたらフィルターは一つだけにしてもう一つはforループでなんとか　
+            Topic.objects.create(topic=topic_id)
+
+        else:
+            pass
+
+         
+        params = { 
+            'topic_id':topic_id,
+        }
+        return render(request, 'main/talk.html', params)
+
+
+
+      
 
 
    
 
 @login_required
 def my_page(request):
-    return render(request,'main/my_page.html')
+    if request.method == "GET":
+        form = ProfileChangeForm()
+        params = {
+            'form': form,
+        }
+        return render(request, 'main/my_page.html', params)
+        
+    elif request.method == "POST":
+        form = ProfileChangeForm(request.POST, request.FILES)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            image = form.cleaned_data.get('image')
+            user_id = request.user.id
+            user = User.objects.get(id=user_id)
+            if username != '':
+                User.objects.filter(id=user_id).update(username=username)
+            if password != '':
+                User.objects.filter(id=user_id).update(password=password)
+            if image != None:
+                UserImage.objects.filter(user=user).update(image=image)
+            return render(request,'main/home.html')
 
