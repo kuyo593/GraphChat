@@ -7,19 +7,22 @@
     <link rel="stylesheet"  type = 'text/css' href="{% static 'main/css/friends.css' %}" />
 </head>
 <body>
-    
-    {% for friend in friends %}
-        
-        <a href="{% url 'topic' friend.0.id %}">  <!--{{friend.id}}ではエラー  -->
+    <div id="container">
+        {% for friend in friends %}
+        <a href="{% url 'topic' friend.0.id %}" class="contents">  <!--{{friend.id}}ではエラー  -->
             {% if friend.1.image %}
-              <img src="{{friend.1.image.url}} ">
+              <!-- <img src="{{friend.1.image.url}} "> -->
             {% endif %}
             {{friend.0.username}}
-        </a>
-    
-      
-    {% endfor %}
-
-
+        </a>  
+      {% endfor %}
+        <div class="contents friends-icon">
+            <p>Friends</p>  
+        </div>
+    </div>
+    <script>
+        var windowHeight = document.documentElement.clientHeight;
+        document.getElementById("container").style.height=windowHeight + "px";
+    </script>
 </body>
 </html>
