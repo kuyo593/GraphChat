@@ -1,43 +1,41 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
-    <link rel="stylesheet" type = 'text/css' href="{% static 'main/css/signup.css' %}">
-    <title>ようこそ、GraphChatへ</title>
-</head>
-<body>
-    <form method="post" action="{% url 'signup' %}" id="container">
-        {% csrf_token %}
-        <div class='signup__username contents'>
-            <label>Name</label>
-            {{ form.username }}
-        </div>
-        <div>
-        <button type="submit" class='signup__button  contents'>Sign up</button>
-        </div>
-        <div class="form__second-line">
-            <div class='signup__password  contents'>
-                <label>Password</label>
-                {{ form.password1 }}
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+        <link rel="stylesheet" type = 'text/css' href="{% static 'main/css/signup.css' %}">
+        <title>ようこそ、GraphChatへ</title>
+    </head>
+    <body>
+        <form method="post" action="{% url 'signup' %}" id="container">
+            {% csrf_token %}
+            <div class='signup__username contents'>
+                {{ form.username }}
             </div>
-            <!-- <div class='signup__password  contents'>
+            <div>
+                <button type="submit" class='signup__button  contents'>Sign up</button>
+            </div>
+            <div class="form__second-line">
+                <div class='signup__password  contents'>
+                    {{ form.password1 }}
+                </div>
+                <!-- <div class='signup__password  contents'>
                 <label>Password</label>
                 {{ form.password2.label_tag }}
                 {{ form.password2 }}
-            </div> -->
-            <div class='signup__img  contents'>
-                <label>Image</label>
-                {{ form.img }}
+                </div> -->
+                <div class='signup__img  contents'>
+                    {{ form.img }}
+                </div>
             </div>
-        </div>
-    </form>
-    <a href="{% url 'index' %}" class="return-button">Return</a>
-    <script>
-        var windowHeight = document.documentElement.clientHeight;
-        document.getElementById("container").style.height=windowHeight + "px";
-    </script>
-</body>
+        </form>
+        <a href="{% url 'index' %}" class="return-button">Return</a>
+
+        <script>
+            var windowHeight = document.documentElement.clientHeight;
+            document.getElementById("container").style.height=windowHeight + "px";
+        </script>
+    </body>
 </html>

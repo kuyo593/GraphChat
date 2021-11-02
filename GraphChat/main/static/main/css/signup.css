@@ -13,7 +13,22 @@ form{
   align-items: center;
 }
 
-.contents{
+input{
+  width: 160px;
+  height: 160px;
+  border: 4px solid #8d8d8d;
+  border-radius: 50%;
+  text-align:center;
+  line-height: 160px;
+  margin: 50px auto;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  /* color: #c5c5c5; */
+  outline: none;
+}
+
+/* .contents{
   width: 160px;
   height: 160px;
   border: 4px solid #8d8d8d;
@@ -39,7 +54,7 @@ form{
   font-size: 1rem;
   font-weight: bold;
   outline: none;
-}
+} */
 
 .signup__button{
   width: 200px;
@@ -53,9 +68,10 @@ form{
 
 .form__second-line{
   display: flex;
+  justify-content: space-around;
 }
 
-.signup__password{
+/* .signup__password{
   font-size: 0.8rem;
 }
 
@@ -66,12 +82,11 @@ form{
   height: 160px;
   width: 160px;
   border-radius: 50%;
-  position: fixed;
-  /* left: 50%;
-  transform: translateX(-50%); */
+  position: relative;
+  left: 0%;
   font-size: 1rem;
   font-weight: bold;
-}
+} */
 
 .return-button{
   border: 2px #707070 solid;
@@ -86,7 +101,7 @@ form{
   left: 10px;
 }
 
-#id_img{
+/* #id_img{
   background-color: transparent;
   text-align: center;
   border: none;
@@ -94,9 +109,9 @@ form{
   width: 160px;
   border-radius: 50%;
   position: fixed;
-  /* left: 50%;
-  transform: translateX(-50%); */
+  left: 50%;
+  transform: translateX(-50%);
   font-size: 1rem;
   font-weight: bold;
   outline: none;
-}
+} */
