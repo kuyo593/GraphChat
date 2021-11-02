@@ -9,32 +9,35 @@
     <title>ようこそ、GraphChatへ</title>
 </head>
 <body>
-    <form method="post" action="{% url 'signup' %}" >
+    <form method="post" action="{% url 'signup' %}" id="container">
         {% csrf_token %}
         <div class='signup__username contents'>
             <label>Name</label>
-            {{ form.username.label_tag }}
             {{ form.username }}
         </div>
         <div>
         <button type="submit" class='signup__button  contents'>Sign up</button>
         </div>
-        <div class='signup__password  contents'>
-            <label>Password</label>
-            {{ form.password1.label_tag }}
-            {{ form.password1 }}
-        </div>
-        <!-- <div class='signup__password  contents'>
-            <label>Password</label>
-            {{ form.password2.label_tag }}
-            {{ form.password2 }}
-        </div> -->
-        <div class='signup__img  contents'>
-            <label>Image</label>
-            {{ form.img.label_tag }}
-            {{ form.img }}
+        <div class="form__second-line">
+            <div class='signup__password  contents'>
+                <label>Password</label>
+                {{ form.password1 }}
+            </div>
+            <!-- <div class='signup__password  contents'>
+                <label>Password</label>
+                {{ form.password2.label_tag }}
+                {{ form.password2 }}
+            </div> -->
+            <div class='signup__img  contents'>
+                <label>Image</label>
+                {{ form.img }}
+            </div>
         </div>
     </form>
-    <a href="{% url 'index' %}">戻る</a>
+    <a href="{% url 'index' %}" class="return-button">Return</a>
+    <script>
+        var windowHeight = document.documentElement.clientHeight;
+        document.getElementById("container").style.height=windowHeight + "px";
+    </script>
 </body>
 </html>

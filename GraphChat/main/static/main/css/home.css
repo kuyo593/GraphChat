@@ -7,11 +7,11 @@ margin: 0;
 }
 
 div{
-height: 900px;/*ここを調整してレスポンシブ対応*/
 display: flex;
 flex-flow: column;
 justify-content: space-around;
 align-items: center;
+flex-wrap: wrap;
 }
 
 a{

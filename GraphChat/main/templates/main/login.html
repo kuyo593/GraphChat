@@ -7,13 +7,13 @@
     <link rel="stylesheet" type = 'text/css' href="{% static 'main/css/login.css' %}">
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
 </head>
-<body>
+  <body>
      {% if form.errors  %}
 
        ユーザーID, パスワードが一致しません．
 
      {% endif %}
-     <form method="POST" action="{% url 'login' %}" >
+     <form method="POST" action="{% url 'login' %}" id="container">
        {% csrf_token %}
         <div class='login__username contents'>
           <label>Name</label>
@@ -29,6 +29,10 @@
           {{ form.password.errors }}
         </div>
       </form>
-     <a href="{% url 'index' %}">戻る</a>
-</body>
+     <a href="{% url 'index' %}" class="return-button">Return</a>
+     <script>
+      var windowHeight = document.documentElement.clientHeight;
+      document.getElementById("container").style.height=windowHeight + "px";
+  </script>
+  </body>
 </html>

@@ -27,18 +27,61 @@ form{
   color: #c5c5c5;
 }
 
+#id_username{
+  background-color: transparent;
+  text-align: center;
+  border: none;
+  height: 160px;
+  width: 160px;
+  border-radius: 50%;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1rem;
+  font-weight: bold;
+  outline: none; 
+}
+
 .login__button{
   width: 200px;
   height: 200px;
   background-color: #FFDEB2;
+  border-radius: 50%;
   line-height: 200px;
   font-size: 1rem;
   font-weight: bold;
   color: #707070;
-  border: none;
 }
 
 .login__password{
   font-size: 0.8rem;
+}
+
+#id_password{
+  background-color: transparent;
+  text-align: center;
+  border: none;
+  height: 160px;
+  width: 160px;
+  border-radius: 50%;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1rem;
+  font-weight: bold;
+  outline: none;
+}
+
+.return-button{
+  border: 2px #707070 solid;
+  border-radius: 15%;
+  padding: 8px 4px;
+  text-decoration: none;
+  color: #707070;
+  font-size: 0.4rem;
+  font-weight: bold;
+  position: absolute;
+  top: 10px;
+  left: 10px;
 }
 
