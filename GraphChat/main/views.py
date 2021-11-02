@@ -134,7 +134,10 @@ def topic(request,id):
                 talk_id_dict = {'id': talk_id}
                 topic_filter_partner.filter(user=user_id).update(topic=talk_id_dict)
                 
-                return render(request, 'main/talk.html')
+                params = {
+                    'topic': topic,
+                }
+                return render(request, 'main/talk.html', params)
                 
 
         else:
@@ -144,9 +147,9 @@ def topic(request,id):
             topic_obj.user.add(myUser)
             topic_obj.user.add(partnerUser)
             
-            params = { 
-                    'topic_id':9999999999,
-                    }
+            params = {
+                    'topic': topic,
+                }
             return render(request, 'main/talk.html', params)
             
 

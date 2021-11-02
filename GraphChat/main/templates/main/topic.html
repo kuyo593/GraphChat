@@ -16,8 +16,10 @@
 
     {% if topic %}
         {% for topic in topic %}
+        <a href="{% url 'talk' topic.id %}">  
             <p>{{topic.talk}}</p>
             <br>
+        </a>
 
         {% endfor %}
 
