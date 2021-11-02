@@ -1,1 +1,37 @@
-a
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" type = 'text/css' href="{% static 'main/css/my_page.css' %}">
+    <title>マイページ</title>
+</head>
+<body>    
+    <form method="post" action="{% url 'my_page' %}" id="container">
+        <div class="contents">
+            <label>Name</label>
+            {{ form.username }}
+        </div>
+        <button type="submit" class="contents update__button">Update</button>
+        <div class="form__second-line">
+            <div class="contents update__password">
+                <label>Password</label>
+                {{ form.password}}
+            </div>
+            <div class="contents">
+                <label>image</label>
+                {{ form.image }}
+            </div>
+        </div>           
+        {% csrf_token %}        
+    </form>
+
+    <a href="{% url 'home' %}" class="return-button">return</a>
+    <script>
+        var windowHeight = document.documentElement.clientHeight;
+        document.getElementById("container").style.height=windowHeight + "px";
+    </script>
+</body>
+</html>

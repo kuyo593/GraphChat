@@ -7,10 +7,16 @@
     <link rel="stylesheet"  type = 'text/css' href="{% static 'main/css/home.css' %}">
 </head>
 <body>
-    <div>
+    <div id="container">
         <a href="{% url 'friends' %}">Friends</a>
-        <a href="{% url 'group' %}">Group</a>
-        <a href="{% url 'my_page' %}">My page</a>
+        <div class="second-line">
+            <a href="{% url 'group' %}">Group</a>
+            <a href="{% url 'my_page' %}">My page</a>
+        </div>
     </div>
+    <script>
+        var windowHeight = document.documentElement.clientHeight;
+        document.getElementById("container").style.height=windowHeight + "px";
+    </script>
 </body>
 </html>

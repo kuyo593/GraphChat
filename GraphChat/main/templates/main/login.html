@@ -1,34 +1,35 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="ja">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type = 'text/css' href="{% static 'main/css/login.css' %}">
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
-</head>
-<body>
-     {% if form.errors  %}
+  </head>
+  <body>
+    <form method="POST" action="{% url 'login' %}" id="container">
+      {% if form.errors  %}
+      ユーザーID, パスワードが一致しません．
+      {% endif %}
+      {% csrf_token %}
+      <div>
+        {{ form.username }}
+        {{ form.username.errors }}
+      </div>
+      <div>
+        <button type="submit" class='login__button'>Login</button>
+      </div>
+      <div>
+        {{ form.password }}
+        {{ form.password.errors }}
+      </div>
+    </form>
+    <a href="{% url 'index' %}" class="return-button">Return</a>
 
-       ユーザーID, パスワードが一致しません．
-
-     {% endif %}
-     <form method="POST" action="{% url 'login' %}" >
-       {% csrf_token %}
-        <div class='login__username contents'>
-          <label>Name</label>
-          {{ form.username }}
-          {{ form.username.errors }}
-        </div>
-        <div>
-          <button type="submit" class='login__button  contents'>Login</button>
-        </div>
-        <div class='login__password  contents'>
-          <label>Password</label>
-          {{ form.password }}
-          {{ form.password.errors }}
-        </div>
-      </form>
-     <a href="{% url 'index' %}">戻る</a>
-</body>
+    <script>
+      var windowHeight = document.documentElement.clientHeight;
+      document.getElementById("container").style.height=windowHeight + "px";
+    </script>
+  </body>
 </html>
