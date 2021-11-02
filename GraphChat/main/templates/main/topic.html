@@ -7,17 +7,32 @@
     <link rel="stylesheet"  type = 'text/css' href="{% static 'main/css/topic.css' %}" />
 </head>
 <body>
-    {{topic}}
+    {% if partnerUser.image %}
+        <img src="{{partner_image.image.url}} ">
+    {% else %}
+        <h3> {{partnerUser.username}} </h3>
+        <br>
+    {% endif %}
+
+    {% if topic %}
+        {% for topic in topic %}
+            <p>{{topic.talk}}</p>
+            <br>
+
+        {% endfor %}
+
+    {% endif %}
 
 
-    
     <form method="POST" action="{% url 'topic' id %}" >
         {% csrf_token %}
-        <p>トピック内容</p>
-        <p>{{form.talk}}</p>
+        <p>+</p>
+        <p>{{form}}</p>
         <input type="submit" value="click">
     </form>
+
+    <a href="{% url 'friends' %}">戻る</a>
     
 
 </body>
-</html>>
+</html>
