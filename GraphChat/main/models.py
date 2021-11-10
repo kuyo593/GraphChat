@@ -5,7 +5,7 @@ from datetime import datetime
 from django.contrib.postgres.fields import ArrayField
 from django.db.models.fields.related import ManyToManyField
 
-#!!!!!!!ぐちゃぐちゃ書いてあるコメントはwebアプリ完成後に一気に消します
+#!!!!!!!不必要なコメントはwebプリ完成後に一気に消します
 
 
 class User(User):

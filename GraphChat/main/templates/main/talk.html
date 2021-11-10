@@ -9,7 +9,17 @@
 <body>
     
     {{topic_id}}
+
     <!-- for文を使ってview.pyにchildtalkも入れたものをパラムに入れる  -->
+    <!--formにより追加される部分以外を再びデータベースから検査する手間を省けるようなコードの方がよい-->
+    <!--分岐する時は｛% url 'talk' 分岐元のtopのid %｝-->
+    <form method="POST" action="{% url 'talk' topic_id  id  %}" >
+        {% csrf_token %}
+        <p>{{form}}</p>
+        <input type="submit" value="click">
+    </form>
+
+    <a href="{% url 'topic' id  %}">戻る</a>
 
 </body>
 </html>

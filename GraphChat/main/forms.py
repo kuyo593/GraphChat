@@ -9,7 +9,7 @@ from django.core.validators import ( FileExtensionValidator)
 
 class SignUpForm(UserCreationForm):
 
-    img = forms.ImageField( required=False, validators=[FileExtensionValidator(["jpg", "jpeg", "png"])],)
+    img = forms.ImageField( required=False, validators=[FileExtensionValidator(["jpg", "jpeg", "png"])])
     class Meta:
         model = User
         fields = ('username', 'password1', 'password2')
@@ -25,6 +25,12 @@ class LoginForm(AuthenticationForm):
 
 class TopicForm(forms.Form):
     topic = forms.CharField(label='topic', required=True)
+    
+class TalkForm(forms.Form):
+    talk = forms.CharField(label='talk', required=True)
+
+class BranchForm(forms.Form):
+    branch_talk = forms.CharField(label='branch_talk', required=True)
     
 
 class ProfileChangeForm(forms.Form):

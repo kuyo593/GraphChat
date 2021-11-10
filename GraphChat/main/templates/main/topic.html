@@ -7,8 +7,8 @@
     <link rel="stylesheet"  type = 'text/css' href="{% static 'main/css/topic.css' %}" />
 </head>
 <body>
-    {% if partnerUser.image %}
-        <img src="{{partner_image.image.url}} ">
+    {% if partner_image.image %}
+       <!-- <img src="{{partner_image.image.url}} "> 写真のサイズ調整してなくて作業に支障がでるほどデザイン崩れるのでコメントアウト--> 
     {% else %}
         <h3> {{partnerUser.username}} </h3>
         <br>
@@ -16,7 +16,7 @@
 
     {% if topic %}
         {% for topic in topic %}
-        <a href="{% url 'talk' topic.id %}">  
+        <a href="{% url 'talk' topic.id id %}">  
             <p>{{topic.talk}}</p>
             <br>
         </a>
