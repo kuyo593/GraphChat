@@ -127,7 +127,7 @@ def topic(request, id):
 
     elif request.method == "POST": #トピックを作るページ
         talk = request.POST['topic']
-        topic = Talk(talk=talk)
+        topic = Talk(talk=talk, talk_from=User.objects.get(id=request.user.id))
         topic.save()
         topic_id=topic.id
         myUser = User.objects.get(id = user_id)
@@ -150,7 +150,7 @@ def topic(request, id):
                 topic_filter_partner.filter(user=user_id).update(topic=talk_id_dict)
                 
                 params = {
-                    'topic_id': topic_obj.id,
+                    'topic_id': topic_id,
                     'form': form,
                     'form_bran': form_bran,
                     'id': id,
@@ -192,30 +192,49 @@ def topic(request, id):
             
 @login_required
 def talk(request, topic_id, id):
+
     
     if request.method == "GET":
         talk = Talk.objects.get(id=topic_id)
-        child_judge = talk.child_talk_id
-        if child_judge:
+        if talk.parent_talk_id is not None: 
+            parent=Talk.objects.get(id=talk.parent_talk_id)
+            out_count = 1
+            while (out_count == 1) and parent.parent_talk_id is not None:
+                pre_parent = parent
+                parent=Talk.objects.get(id=parent.parent_talk_id)
+                if len(parent.child_talk_id['id']) != 1:
+                    out_count +=1
+            if out_count == 2:
+                    return_id = pre_parent.id
+            else:
+                return_id = parent.id
+            return_url_name = 'talk'
+        else:
+            return_id = id
+            return_url_name = 'topic'
 
-            multiple_judge= copy.deepcopy(child_judge)
-            multiple_judge= multiple_judge['id']
         talk_content = [talk]
-        while child_judge != None and multiple_judge < 2:
-            child_talk = Talk.objects.get(id=talk_content[-1].child_talk_id[id][0])
+        child_judge = talk.child_talk_id
+        multiple_judge =0
+        if child_judge != {}:
+            multiple_judge= len(child_judge['id'])
+
+        while child_judge != {} and multiple_judge < 2:
+            child_talk = Talk.objects.get(id=talk_content[-1].child_talk_id['id'][0])
             talk_content.append(child_talk)
             child_judge = child_talk.child_talk_id
-            multiple_judge= child_talk.child_talk_id['id'].length()
+            if child_judge != {}:
+                multiple_judge= len(child_judge['id'])
 
+            
 
+        branch_talk = []
         if multiple_judge >= 2:
-            branch_talk = []
             length = multiple_judge
             count = 0
             while count < length:
                 branch_talk.append(Talk.objects.get(id=child_judge['id'][count]))
                 count += 1
-
         form = TalkForm()
         form_bran = BranchForm()
         params = {
@@ -224,25 +243,50 @@ def talk(request, topic_id, id):
             'form_bran': form_bran,
             'branch_talk': branch_talk,
             'id': id,
+            'topic_id': topic_id,
+            'return_url_name': return_url_name,
+            'return_id': return_id,
         }
         return render(request, 'main/talk.html', params)
+
+#ここまで
+
     elif request.method == "POST":
         talk = Talk.objects.get(id=topic_id)
         
-        if request.POST['talk']:
+        if 'talk' in request.POST:#request.POST['talk']の時は新しくトークの枝を切っていない場合
+            if talk.parent_talk_id is not None: 
+                parent=Talk.objects.get(id=talk.parent_talk_id)
+                out_count = 1
+                while (out_count == 1) and parent.parent_talk_id is not None:
+                    pre_parent = parent
+                    parent=Talk.objects.get(id=parent.parent_talk_id)
+                    if len(parent.child_talk_id['id']) != 1:
+                        out_count +=1
+                if out_count == 2:
+                    return_id = pre_parent.id
+                else:
+                    return_id = parent.id
+                 
+                return_url_name = 'talk'
+            else:
+                 return_id = id
+                 return_url_name = 'topic'
+
             child_judge = talk.child_talk_id
             #multiple_judge= talk.child_talk_id['id'].length() 必要なし
             talk_content = [talk]
             child_talk = talk
-            while child_judge != None:
-                child_talk = Talk.objects.get(id=talk_content[-1].child_talk_id[id][0])
+            while child_judge != {}:
+                child_talk = Talk.objects.get(id=child_talk.child_talk_id['id'][0])
                 talk_content.append(child_talk)
                 child_judge = child_talk.child_talk_id
-                #multiple_judge= child_talk.child_talk_id['id'].length()
+                #multiple_judge= child_talk.child_talk_id['id'].length() 必要なし
 
             talk = request.POST['talk']
-            talk_save = Talk(talk=talk, talk_from=request.user, talk_to=id)
+            talk_save = Talk(talk=talk, talk_from=User.objects.get(id=request.user.id), talk_to=User.objects.get(id=id), parent_talk_id=topic_id)
             talk_save.save()
+            talk_content.append(talk_save)
             
             Talk.objects.filter(id=child_talk.id).update(child_talk_id={'id': [talk_save.id]})
 
@@ -255,12 +299,28 @@ def talk(request, topic_id, id):
                 'form': form,
                 'form_bran': form_bran,
                 'id': id,
+                'topic_id': topic_id,
+                'return_url_name': return_url_name,
+                'return_id': return_id,
             }
             return render(request, 'main/talk.html', params)
 
-        elif request.POST['branch_talk']:
+        elif 'branch_talk' in request.POST:#request.POST['branch_talk']の時は新しくトークの枝を切っていない場合
+            parent=Talk.objects.get(id=topic_id)
+            out_count = 1
+            while (out_count == 1) and parent.parent_talk_id is not None:
+                pre_parent = parent
+                parent=Talk.objects.get(id=parent.parent_talk_id)
+                if len(parent.child_talk_id['id']) != 1:
+                    out_count +=1
+            if out_count == 2:
+                return_id = pre_parent.id
+            else:
+                return_id = parent.id
+            return_url_name = 'talk'
+
             branch_talk = request.POST['branch_talk']
-            talk_save = Talk(talk=branch_talk, talk_from=request.user, talk_to=id)
+            talk_save = Talk(talk=branch_talk, talk_from=User.objects.get(id=request.user.id), talk_to=User.objects.get(id=id), parent_talk_id=topic_id)
             talk_save.save()
 
             child_list = talk.child_talk_id['id']
@@ -269,12 +329,14 @@ def talk(request, topic_id, id):
             
             talk_content = [talk_save]
             form = TalkForm()
-            form_bran = BranchForm()
+            
             params = {
                 'talk_content': talk_content,
                 'form': form,
-                'form_bran': form_bran,
                 'id': id,
+                'topic_id': talk_save.id,
+                'return_url_name': return_url_name,
+                'return_id': return_id,
             }
             return render(request, 'main/talk.html', params)
 
