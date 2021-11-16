@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"  type = 'text/css' href="{% static 'main/css/group_topic.css' %}" />
+</head>
+<body>
+    {% if group_topic %}
+        {% for group_topic in group_topic %}
+            <a href="{% url 'group_talk'  group_topic.id group_id %}">
+                {{group_topic.talk}} <br>
+            </a>
+        {% endfor %}
+    {% endif %}
+
+
+    <form method="POST" action="{% url 'group_topic' group_id %}">
+        {% csrf_token %}        
+        {{ topic_form.topic }}
+        <input type="submit" value="click">
+    </form>
+    <a href="{% url 'group' %}">グループページへ戻る</a>
+    
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"  type = 'text/css' href="{% static 'main/css/group_creation.css' %}" />
+</head>
+<body>
+    <form method="POST" action="{% url 'group_creation' %}">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="click">
+    </form>
+    
+    <a href="{% url 'group' %}">return</a>
+</body>
+</html>

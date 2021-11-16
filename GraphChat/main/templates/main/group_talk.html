@@ -19,7 +19,7 @@
             <p>{{talk_content.talk}}</p>
             <p>{{talk_content.talk_from}}</p>
                 {% if forloop.last is False %}
-                    <form method="POST" action="{% url 'talk' talk_content.id id %}">
+                    <form method="POST" action="{% url 'group_talk' talk_content.id group_id %}">
                         {% csrf_token %}
                         <p>{{form_bran}}</p>
                         <input type="submit" value="click">
@@ -29,14 +29,14 @@
                     {% if branch_talk %}
 
 
-                        <form method="POST" action="{% url 'talk' talk_content.id id %}">
+                        <form method="POST" action="{% url 'group_talk' talk_content.id group_id %}">
                             {% csrf_token %}
                             <p>{{form_bran}}</p>
                             <input type="submit" value="click">
                         </form>
 
                         {% for branch_talk in branch_talk %}
-                            <a href="{% url 'talk' branch_talk.id id %}">
+                            <a href="{% url 'group_talk' branch_talk.id group_id %}">
                                 {{branch_talk.talk}}
                             </a>
                             <br>
@@ -44,7 +44,7 @@
                     
                     {% else %}
                     
-                        <form method="POST" action="{% url 'talk' topic_id  id  %}" >
+                        <form method="POST" action="{% url 'group_talk' topic_id  group_id  %}" >
                             {% csrf_token %}
                             <p>{{form}}</p>
                             <input type="submit" value="click">
@@ -65,9 +65,9 @@
 
 
     {% if return_url_name == 'talk' %}
-        <a href="{% url 'talk' return_id id  %}">戻る</a>
+        <a href="{% url 'group_talk' return_id group_id  %}">戻る</a>
     {% else %}
-        <a href="{% url 'topic' id   %}">戻る</a>
+        <a href="{% url 'group_topic' group_id   %}">戻る</a>
         <!--parent_talk_idがモデルに追加されていない時に生成下トークは戻るボタンがうまく行かない-->
     {% endif %}
 
