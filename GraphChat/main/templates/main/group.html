@@ -1,1 +1,35 @@
-a
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"  type = 'text/css' href="{% static 'main/css/group.css' %}" />
+</head>
+<body>
+    {% if sorted_all_group %}
+        {% for one_group in sorted_all_group %}
+            <a href="{% url 'group_topic' one_group.0.id %}">
+
+                {{ one_group.0.name }}
+                <br>
+                {% if one_group.1.image %}
+                    <img src="{{one_group.1.image.url}}">
+                {% endif %}
+            </a>
+            
+        {% endfor %}
+    {% endif %}
+
+    {% if no_group_message %}
+
+    {% endif %}
+
+    <p>
+        <a href="{% url 'group_creation' %}">+</a>
+    </p>
+
+    <a href="{% url 'home' %}">return</a>
+
+</body>
+</html>

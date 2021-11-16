@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"  type = 'text/css' href="{% static 'main/css/talk.css' %}" />
+</head>
+<body>
+    
+    
+
+    <!-- for文を使ってview.pyにchildtalkも入れたものをパラムに入れる  -->
+    <!--formにより追加される部分以外を再びデータベースから検査する手間を省けるようなコードの方がよい-->
+    <!--分岐する時は｛% url 'talk' 分岐元のtopのid %｝-->
+    {% if talk_content %}
+        {% for talk_content in talk_content %}
+        
+            <p>{{talk_content.talk}}</p>
+            <p>{{talk_content.talk_from}}</p>
+                {% if forloop.last is False %}
+                    <form method="POST" action="{% url 'group_talk' talk_content.id group_id %}">
+                        {% csrf_token %}
+                        <p>{{form_bran}}</p>
+                        <input type="submit" value="click">
+                    </form>
+                {% else %}
+                    
+                    {% if branch_talk %}
+
+
+                        <form method="POST" action="{% url 'group_talk' talk_content.id group_id %}">
+                            {% csrf_token %}
+                            <p>{{form_bran}}</p>
+                            <input type="submit" value="click">
+                        </form>
+
+                        {% for branch_talk in branch_talk %}
+                            <a href="{% url 'group_talk' branch_talk.id group_id %}">
+                                {{branch_talk.talk}}
+                            </a>
+                            <br>
+                        {% endfor %}
+                    
+                    {% else %}
+                    
+                        <form method="POST" action="{% url 'group_talk' topic_id  group_id  %}" >
+                            {% csrf_token %}
+                            <p>{{form}}</p>
+                            <input type="submit" value="click">
+                        </form>
+                    {% endif %}
+                
+                {% endif %}
+                
+
+
+
+
+            {% endfor %}
+        
+    {% endif %}
+
+
+
+
+    {% if return_url_name == 'talk' %}
+        <a href="{% url 'group_talk' return_id group_id  %}">戻る</a>
+    {% else %}
+        <a href="{% url 'group_topic' group_id   %}">戻る</a>
+        <!--parent_talk_idがモデルに追加されていない時に生成下トークは戻るボタンがうまく行かない-->
+    {% endif %}
+
+    
+
+</body>
+</html>

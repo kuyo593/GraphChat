@@ -35,11 +35,12 @@ class Topic(models.Model): #さしあたりトピック名が被るのを許す�
 
 class Group(models.Model):
    name=models.CharField(null=False,max_length=36)
+   topic = models.JSONField(default=dict())
 
 class GroupImage(models.Model):
-   user = models.OneToOneField(Group, on_delete=models.CASCADE, related_name="group_img")
+   group = models.OneToOneField(Group, on_delete=models.CASCADE, related_name="group_img")
    image = models.ImageField(verbose_name="画像", null=True, blank=True, upload_to="images")
 
 
-class Example(models.Model):
+class Example(models.Model):#ただの実験体モデル
    array=ArrayField(models.IntegerField())
